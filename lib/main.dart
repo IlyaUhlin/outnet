@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:outnet/screens/chat_screen.dart';
 import 'package:outnet/screens/login_screen.dart';
 
 import 'app_routes.dart';
+import 'connection.dart';
 
 void main() {
+  Connection.connect();
   runApp(const MyApp());
 }
 
@@ -18,23 +21,9 @@ class MyApp extends StatelessWidget {
       initialRoute: AppRoutes.loginScreen.name,
       navigatorKey: _navigatorKey,
       routes: {
-        AppRoutes.loginScreen.name: (context) => LoginScreen(),
-        AppRoutes.chatScreen.name: (context) => LoginScreen(),
+        AppRoutes.loginScreen.name: (context) => const LoginScreen(),
+        AppRoutes.chatScreen.name: (context) => const ChatScreen(),
       },
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
