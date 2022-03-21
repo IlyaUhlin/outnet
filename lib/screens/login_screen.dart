@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:outnet/app_routes.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 
 import '../app_res/AppColors.dart';
@@ -42,6 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: TextField(
                     onChanged: (text) {
                       if (text.length == 4) {
+                        Navigator.popAndPushNamed(
+                            context, AppRoutes.chatScreen.name);
                         if (kDebugMode) {
                           print(text);
                         }
