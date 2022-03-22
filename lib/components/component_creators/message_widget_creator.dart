@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'app_res/AppColors.dart';
+import '../../app_res/AppColors.dart';
 
 class MessageWidgetCreator {
   late final Widget _messageWidget;

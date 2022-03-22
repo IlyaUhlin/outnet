@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../app_res/AppColors.dart';
-import '../message_widget_creator.dart';
+import '../components/component_creators/message_widget_creator.dart';
 import '../models/message_model.dart';
 import '../repository.dart';
 

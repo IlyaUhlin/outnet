@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:outnet/app_routes.dart';
+import 'package:outnet/components/dialog_widget.dart';
+import 'package:outnet/components/spin_widget.dart';
 import 'package:outnet/connection.dart';
-import 'package:outnet/spin_widget.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 
 import '../app_res/AppColors.dart';
@@ -27,6 +28,10 @@ class _LoginScreenState extends State<LoginScreen> {
         isVisibleSpin = false;
         focusNode.requestFocus();
       });
+    }, () {
+      setState(() {
+        showDialog();
+      });
     });
     super.initState();
   }
@@ -45,6 +50,26 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       onWillPop: () async => false,
     );
+  }
+
+  void showDialog() {
+    AppDialog(
+      message: 'Lost Connection',
+      title: 'Error',
+      buttons: [
+        ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(AppColors.orange),
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.loginScreen.name);
+            },
+            child: const Text(
+              "Repeat",
+              style: TextStyle(color: Colors.black),
+            ))
+      ],
+    ).show(context);
   }
 
   WidgetCircularAnimator buildWidgetCircularAnimator() {
