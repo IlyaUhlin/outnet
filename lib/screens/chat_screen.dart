@@ -32,19 +32,21 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance?.addPostFrameCallback((_) => _scrollToBottom());
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: Colors.black,
-          body: Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Column(
-              children: [
-                Expanded(child: buildListView()),
-                buildInputField(),
-              ],
-            ),
-          )),
-    );
+    return WillPopScope(
+        child: SafeArea(
+          child: Scaffold(
+              backgroundColor: Colors.black,
+              body: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Column(
+                  children: [
+                    Expanded(child: buildListView()),
+                    buildInputField(),
+                  ],
+                ),
+              )),
+        ),
+        onWillPop: () async => false);
   }
 
   void addReceivedMessagesToList() {}

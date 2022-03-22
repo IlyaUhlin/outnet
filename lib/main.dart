@@ -3,10 +3,8 @@ import 'package:outnet/screens/chat_screen.dart';
 import 'package:outnet/screens/login_screen.dart';
 
 import 'app_routes.dart';
-import 'connection.dart';
 
 void main() {
-  Connection.connect();
   runApp(const MyApp());
 }
 
