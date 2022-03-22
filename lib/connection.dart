@@ -8,10 +8,12 @@ class Connection {
   static late Socket _socket;
   static bool hasConnected = false;
 
-  static void connect(Function() onConnection) async {
-    Socket.connect("195.122.229.149", 1234, timeout: const Duration(seconds: 5))
+  static void connect(
+      Function() onConnection, Function() onErrorCallBack) async {
+    Socket.connect("195.122.229.149", 1234, timeout: const Duration(seconds: 1))
         .then((socket) =>
-            {_socket = socket, onConnection.call(), hasConnected = true});
+            {_socket = socket, onConnection.call(), hasConnected = true})
+        .onError((error, stackTrace) => {onErrorCallBack.call()});
   }
 
   static void startListen(Function(String dataRetrieved) onMessageReceive) {
