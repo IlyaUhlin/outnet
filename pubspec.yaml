@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   widget_circular_animator: ^1.0.0
+  flutter_spinkit: ^5.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
