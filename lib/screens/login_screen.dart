@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:outnet/app_res/AppStrings.dart';
 import 'package:outnet/app_routes.dart';
 import 'package:outnet/components/dialog_widget.dart';
 import 'package:outnet/components/spin_widget.dart';
@@ -19,20 +20,12 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController myController = TextEditingController();
   late FocusNode focusNode;
   bool isVisibleSpin = true;
+  bool dialogShown = false;
 
   @override
   void initState() {
     focusNode = FocusNode();
-    Connection.connect(() {
-      setState(() {
-        isVisibleSpin = false;
-        focusNode.requestFocus();
-      });
-    }, () {
-      setState(() {
-        showDialog();
-      });
-    });
+    connectToServer();
     super.initState();
   }
 
@@ -52,20 +45,40 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void connectToServer() {
+    Connection.connect(() {
+      setState(() {
+        if (dialogShown) {
+          Navigator.of(context).pop(true);
+        }
+        dialogShown = false;
+        isVisibleSpin = false;
+        focusNode.requestFocus();
+      });
+    }, () {
+      setState(() {
+        if (!dialogShown) {
+          showDialog();
+          dialogShown = true;
+        }
+      });
+    });
+  }
+
   void showDialog() {
     AppDialog(
-      message: 'Lost Connection',
-      title: 'Error',
+      message: AppStrings.lostConnection,
+      title: AppStrings.error,
       buttons: [
         ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(AppColors.orange),
             ),
             onPressed: () {
-              Navigator.pushNamed(context, AppRoutes.loginScreen.name);
+              connectToServer();
             },
             child: const Text(
-              "Repeat",
+              AppStrings.repeat,
               style: TextStyle(color: Colors.black),
             ))
       ],
@@ -113,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
       textAlign: TextAlign.center,
       style: const TextStyle(fontSize: 30, color: AppColors.orange),
       decoration: InputDecoration(
-        hintText: "Enter code",
+        hintText: AppStrings.enterCode,
         hintStyle: TextStyle(
           color: AppColors.orange.withOpacity(0.7),
         ),

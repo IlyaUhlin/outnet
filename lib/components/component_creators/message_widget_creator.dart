@@ -1,37 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:outnet/models/message_model.dart';
 
 import '../../app_res/AppColors.dart';
 
 class MessageWidgetCreator {
   late final Widget _messageWidget;
 
-  MessageWidgetCreator.localMessage(String messageContent) {
+  MessageWidgetCreator(String messageContent, MessageType messageType) {
+    bool isLocalType = messageType == MessageType.local;
     _messageWidget = Align(
-      alignment: Alignment.topLeft,
+      alignment: isLocalType ? Alignment.topLeft : Alignment.topRight,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: AppColors.orange),
-          color: Colors.black,
-        ),
-        padding: const EdgeInsets.all(16),
-        child: Text(
-          messageContent,
-          style: const TextStyle(color: AppColors.orange, fontSize: 15),
-        ),
-        margin: const EdgeInsets.only(bottom: 10),
-      ),
-    );
-  }
-
-  MessageWidgetCreator.serverMessage(String messageContent) {
-    _messageWidget = Align(
-      alignment: Alignment.topRight,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: AppColors.orange),
-          color: AppColors.darkGrey,
+          color: isLocalType ? Colors.black : AppColors.darkGrey,
         ),
         padding: const EdgeInsets.all(16),
         child: Text(
