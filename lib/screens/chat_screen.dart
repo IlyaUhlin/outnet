@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outnet/app_res/AppStrings.dart';
 
 import '../app_res/AppColors.dart';
 import '../components/component_creators/message_widget_creator.dart';
@@ -63,13 +64,9 @@ class _ChatScreenState extends State<ChatScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              messages[index].messageType == MessageType.local
-                  ? MessageWidgetCreator.localMessage(
-                          messages[index].messageContent)
-                      .messageWidget
-                  : MessageWidgetCreator.serverMessage(
-                          messages[index].messageContent)
-                      .messageWidget
+              MessageWidgetCreator(messages[index].messageContent,
+                      messages[index].messageType)
+                  .messageWidget
             ],
           );
         });
@@ -117,7 +114,7 @@ class _ChatScreenState extends State<ChatScreen> {
       maxLines: 4,
       style: const TextStyle(color: AppColors.orange),
       decoration: InputDecoration(
-          hintText: "Write message",
+          hintText: AppStrings.writeText,
           hintStyle: TextStyle(
             color: Colors.orange.withOpacity(0.7),
           ),
